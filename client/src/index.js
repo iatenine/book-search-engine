@@ -6,8 +6,11 @@ import App from "./App";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
 const apolloUri =
-  "https://book-search-engine-server.herokuapp.com/graphql" ||
-  "http://localhost:3001/graphql";
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3001/graphql"
+    : "https://book-search-engine.herokuapp.com/graphql";
+
+console.log("uri: ", process.env.NODE_ENV);
 
 const client = new ApolloClient({
   uri: apolloUri,
