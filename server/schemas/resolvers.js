@@ -18,7 +18,7 @@ const resolvers = {
       if (!user) {
         throw new Error("User does not exist");
       }
-      const valid = await user.validatePassword(password);
+      const valid = await user.isCorrectPassword(password);
       if (!valid) {
         throw new Error("Invalid password");
       }
