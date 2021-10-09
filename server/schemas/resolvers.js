@@ -14,7 +14,7 @@ const resolvers = {
   },
   Mutation: {
     login: async (parent, { email, password }, token) => {
-      const user = await User.findOne({ where: { email } });
+      const user = await User.findOne({ email });
       if (!user) {
         throw new Error("User does not exist");
       }
