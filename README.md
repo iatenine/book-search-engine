@@ -23,6 +23,8 @@ App can be intalled and run from the root directory with the following command:
 
 # Usage
 
+![screenshot](book-search-screenshot.png)
+
 This app can be used as either a wishlist or reading list for a user, simply search for
 the book to be saved, click the button at the bottom of the correct result and click the
 link to view your saved books in the top-right corner. Books can just as easily be removed
