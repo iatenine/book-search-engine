@@ -81,7 +81,7 @@ const SearchBooks = () => {
         },
       });
 
-      if (!data) {
+      if (!data || error) {
         throw new Error("something went wrong!");
       }
 
