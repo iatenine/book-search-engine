@@ -6,8 +6,10 @@ const resolvers = {
     // Use JWT auth to find and return the appropriate user
     // GraphQL will automatically attach the user to the context
     me: async () => {
-      const user = await User.findOne({ where: { id: "1" } });
-      return user;
+      console.log(user);
+      console.log(req.user);
+      // const user = await User.findOne({ where: { id: "1" } });
+      // return user;
     },
   },
   Mutation: {
@@ -20,30 +22,64 @@ const resolvers = {
       if (!valid) {
         throw new Error("Invalid password");
       }
+      const signedToken = signToken(user);
       return {
-        token: "token",
+        token: signedToken,
+        user,
       };
     },
 
-    addUser: async (parent, { username, email, password }) => {
+    addUser: async (parent, { username, email, password }, token) => {
       const user = await User.create({
         username,
         email,
         password,
       });
 
-      const token = signToken(user);
+      const signedToken = signToken(user);
 
-      return { token, user };
+      return { token: signedToken, user };
     },
 
     saveBook: async (
       parent,
       { bookAuthors, description, title, bookId, image, link },
       token
-    ) => {},
+    ) => {
+      const user = await User.findOne({ where: { id: token.userId } });
+      if (!user) {
+        throw new Error("User does not exist");
+      }
 
-    removeBook: async (parent, { bookId }, token) => {},
+      const book = await Book.create({
+        bookAuthors,
+        description,
+        title,
+        bookId,
+        image,
+        link,
+      });
+
+      user.addBook(book);
+
+      return user;
+    },
+
+    removeBook: async (parent, { bookId }, token) => {
+      const user = await User.findOne({ where: { id: token.userId } });
+      if (!user) {
+        throw new Error("User does not exist");
+      }
+
+      const book = await Book.findOne({ where: { id: bookId } });
+      if (!book) {
+        throw new Error("Book does not exist");
+      }
+
+      user.removeBook(book);
+
+      return user;
+    },
   },
 };
 
