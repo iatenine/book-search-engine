@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   Jumbotron,
   Container,
@@ -35,13 +35,18 @@ const SavedBooks = () => {
       });
       // const response = await deleteBook(bookId, token);
 
-      if (!data) {
+      if (!data || error) {
         throw new Error("something went wrong!");
       }
 
       // const updatedUser = await response.json();
       // setUserData(updatedUser);
       // upon success, remove book's id from localStorage
+      removeBook({
+        variables: {
+          bookId,
+        },
+      });
       removeBookId(bookId);
     } catch (err) {
       console.error(err);
