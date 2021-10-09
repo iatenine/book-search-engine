@@ -14,6 +14,7 @@ const init = async () => {
     typeDefs,
     resolvers,
     context: authMiddleware,
+    cors: false,
   });
 
   await server.start({});
