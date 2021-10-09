@@ -3,13 +3,7 @@ import ReactDOM from "react-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import App from "./App";
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  // useQuery,
-  // gql,
-} from "@apollo/client";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
 const apolloUri =
   "https://book-search-engine-server.herokuapp.com/graphql" ||
