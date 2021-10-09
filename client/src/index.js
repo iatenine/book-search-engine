@@ -10,8 +10,6 @@ const apolloUri =
     ? "http://localhost:3001/graphql"
     : "https://book-search-engine.herokuapp.com/graphql";
 
-console.log("uri: ", process.env.NODE_ENV);
-
 const client = new ApolloClient({
   uri: apolloUri,
   cache: new InMemoryCache(),
