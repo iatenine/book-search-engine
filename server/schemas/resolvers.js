@@ -46,7 +46,7 @@ const resolvers = {
       { bookAuthors, description, title, bookId, image, link },
       token
     ) => {
-      const user = await User.findOne({ where: { id: token.userId } });
+      const user = await User.findOne({ id: token.userId });
       if (!user) {
         throw new Error("User does not exist");
       }
@@ -66,12 +66,12 @@ const resolvers = {
     },
 
     removeBook: async (parent, { bookId }, token) => {
-      const user = await User.findOne({ where: { id: token.userId } });
+      const user = await User.findOne({ id: token.userId });
       if (!user) {
         throw new Error("User does not exist");
       }
 
-      const book = await Book.findOne({ where: { id: bookId } });
+      const book = await Book.findOne({ id: bookId });
       if (!book) {
         throw new Error("Book does not exist");
       }
